@@ -65,7 +65,7 @@ class QAU_Net(nn.Module):
         self.object_dp4 = object_dp(512,512)
         self.conv5 = DoubleConv(512, 1024)
 
-        self.triplet_attention = QuartetAttention(1024, 16)
+        self.quartet_attention = QuartetAttention(1024, 16)
 
         self.up6 = nn.ConvTranspose2d(1024, 512, 2, stride=2)
         self.conv6 = DoubleConv(1024, 512)
@@ -110,7 +110,7 @@ class QAU_Net(nn.Module):
 
         c5=self.conv5(p4)
 
-        c5 = self.triplet_attention(c5)
+        c5 = self.quartet_attention(c5)
 
         up_6= self.up6(c5)
         merge6 = torch.cat([up_6, bsp4], dim=1)
